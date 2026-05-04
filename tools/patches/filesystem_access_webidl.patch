@@ -1,0 +1,8 @@
+--- a/dom/webidl/FileSystemAccess.webidl
++++ b/dom/webidl/FileSystemAccess.webidl
+@@ -10,1 +10,1 @@
+-  [Pref="dom.fileSystemAccess.showDirectoryPicker.enabled", Throws]
++  [Throws]
+   Promise<FileSystemDirectoryHandle> showDirectoryPicker(
+     optional FileSystemGetDirectoryOptions options = {}
+   );

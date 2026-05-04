@@ -163,6 +163,21 @@ jobs:
             echo "Warning: .github/assets/branding directory not found, skipping branding copy."
           fi
 
+      - name: Source Surgery (Enable showDirectoryPicker)
+        run: |
+          echo "Applying source surgery to enable showDirectoryPicker in WebIDL..."
+          # Locate FileSystemAccess.webidl in the bootstrapped gecko source
+          WEBIDL_PATH=$(find . -name "FileSystemAccess.webidl" | head -n 1)
+          if [ -n "$WEBIDL_PATH" ]; then
+            echo "Found WebIDL at: $WEBIDL_PATH"
+            # Remove [Pref] or [Nightly] guards for showDirectoryPicker
+            # This makes the API always available in the window object
+            sed -i 's/\[Pref="dom.fileSystemAccess.showDirectoryPicker.enabled"\]//g' "$WEBIDL_PATH"
+            sed -i 's/\[SecureContext\]//g' "$WEBIDL_PATH"
+          else
+            echo "Warning: FileSystemAccess.webidl not found, skipping surgery."
+          fi
+
       - name: Mach configure
         env:
           IS_BETA: ${{ inputs.beta }}

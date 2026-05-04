@@ -66,7 +66,7 @@ jobs:
           github-token: ${{ github.token }}
           script: |
             const runId = '${{ inputs.runtime_artifact_workflow_run_id }}';
-            const targetRepo = '${{ github.repository }}-runtime';
+            const targetRepo = 'Floorp-Projects/Floorp-runtime';
             const [owner, repo] = targetRepo.split('/');
             const { data: run } = await github.rest.actions.getWorkflowRun({
               owner,
@@ -80,10 +80,10 @@ jobs:
             }
             core.setOutput('commit_hash', commitHash);
 
-      - name: Checkout ${{ github.repository }}-runtime
+      - name: Checkout Floorp-runtime
         uses: actions/checkout@v4
         with:
-          repository: ${{ github.repository }}-runtime
+          repository: Floorp-Projects/Floorp-runtime
           ref: ${{ steps.get-commit.outputs.commit_hash }}
           submodules: "recursive"
 
@@ -462,7 +462,7 @@ jobs:
           name: ${{ env.ARTIFACT_NAME }}
           run-id: ${{ env.RUNTIME_ARTIFACT_WORKFLOW_RUN_ID }}
           github-token: ${{ github.token }}
-          repository: ${{ github.repository }}-runtime
+          repository: Floorp-Projects/Floorp-runtime
           path: ~/downloads
 
       - name: Download Mozilla Artifact from GitHub Releases
@@ -475,11 +475,11 @@ jobs:
           fi
           case "$CANON_PLATFORM" in
             "macOS-x86_64")
-              curl -L "https://github.com/${{ github.repository }}-runtime/releases/latest/download/${ARTIFACT_FROM_RELEASE_NAME}" -o "$HOME/downloads/${ARTIFACT_FROM_RELEASE_NAME}"
-              curl -L "https://github.com/${{ github.repository }}-runtime/releases/latest/download/${ARTIFACT_FROM_RELEASE_NAME_FRAMEWORK}" -o "$HOME/downloads/${ARTIFACT_FROM_RELEASE_NAME_FRAMEWORK}"
+              curl -L "https://github.com/Floorp-Projects/Floorp-runtime/releases/latest/download/${ARTIFACT_FROM_RELEASE_NAME}" -o "$HOME/downloads/${ARTIFACT_FROM_RELEASE_NAME}"
+              curl -L "https://github.com/Floorp-Projects/Floorp-runtime/releases/latest/download/${ARTIFACT_FROM_RELEASE_NAME_FRAMEWORK}" -o "$HOME/downloads/${ARTIFACT_FROM_RELEASE_NAME_FRAMEWORK}"
               ;;
             *)
-              curl -L "https://github.com/${{ github.repository }}-runtime/releases/latest/download/${ARTIFACT_FROM_RELEASE_NAME}" -o "$HOME/downloads/${ARTIFACT_FROM_RELEASE_NAME}"
+              curl -L "https://github.com/Floorp-Projects/Floorp-runtime/releases/latest/download/${ARTIFACT_FROM_RELEASE_NAME}" -o "$HOME/downloads/${ARTIFACT_FROM_RELEASE_NAME}"
               ;;
           esac
 
